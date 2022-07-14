@@ -14,7 +14,7 @@ export const Button = forwardRef(function Button (props ,ref) {
     {warning: 'is-warning'},
     {dark: 'is-dark'},
     {light: 'is-light'}
-  ]+
+  ]
   let colorClass = 'is-primary'
 
   console.log(Object.entries(colors).find(([color, classname])=> props[color]))
