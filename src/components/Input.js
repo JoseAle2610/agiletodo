@@ -1,9 +1,10 @@
 import {useState, useRef} from 'react'
+import PropTypes from 'prop-types'
 
-export const InputAddon = ({placeholder, buttonLabel, addMeta}) => {
+export const InputAddon = ({placeholder, buttonLabel, onSubmit}) => {
   const [inputValue, setInputValue] = useState('')
   const handleSubmit = (e) => {
-    addMeta(inputValue)
+    onSubmit(inputValue)
     setInputValue('')
     e.preventDefault()
   }
@@ -28,6 +29,14 @@ export const InputAddon = ({placeholder, buttonLabel, addMeta}) => {
       </div>
     </div>
   )
+}
+InputAddon.propTypes = {
+  placeholder: PropTypes.string,
+  buttonLabel: PropTypes.string,
+  onSubmit: PropTypes.func
+}
+InputAddon.defaultProps = {
+  onSubmit: () => {return}
 }
 
 export const SpanEdit = ({title, onChange, onFocus}) => {

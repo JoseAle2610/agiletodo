@@ -1,30 +1,29 @@
 import { forwardRef } from 'react'
 
-export const Button = forwardRef(function Button ({
-  onClick,
-  disabled,
-  children,
-  ...props
-},ref) {
+export const Button = forwardRef(function Button (props ,ref) {
+  const {
+    onClick,
+    disabled,
+    children,
+  } = props
   const colors = [
-    'primary',
-    'success',
-    'info',
-    'danger',
-    'warning',
-    'dark',
-    'light'
-  ]
+    {primary: 'is-primary'},
+    {success: 'is-success'},
+    {info: 'is-info'},
+    {danger: 'is-danger'},
+    {warning: 'is-warning'},
+    {dark: 'is-dark'},
+    {light: 'is-light'}
+  ]+
+  let colorClass = 'is-primary'
 
-  const color= colors.find(e => props.hasOwnProperty(e))
-  const colorClass = color === undefined ? `is-primary` : `is-${color}`
+  console.log(Object.entries(colors).find(([color, classname])=> props[color]))
 
   return (
     <button
       className={`button ${colorClass}`}
       onClick={onClick}
       disabled={disabled}
-      ref={ref}
     >
       {children}
     </button>
