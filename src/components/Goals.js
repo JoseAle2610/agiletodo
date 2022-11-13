@@ -1,25 +1,25 @@
 import {useState, useEffect} from 'react'
 import {fetcher} from 'lib/fetcher'
-import {InputAddon} from 'components/Input'
-import {TagList} from 'components/Tag'
+import {InputAddon} from 'uicomponents/Input'
+import {TagList} from 'uicomponents/Tag'
 
 
-export const Goals = ({apiUrl}) => {
+export const Goals = (props) => {
 
   const [goals, setGoals] = useState([])
 
   useEffect(() => {
-    fetcher(apiUrl).then(json => setGoals(json))
+    fetcher(props.apiUrl).then(json => setGoals(json))
   }, [])
 
   const handleDeleteMeta = (data) => {
-    fetcher(`${apiUrl}/${data.id}`, {
+    fetcher(`${props.apiUrl}/${data.id}`, {
       method: 'DELETE',
     }).then(() => setGoals(prev => prev.filter(e => e.id !== data.id)))
   }
   const addGoal = (title) => {
     title = title.trim()
-    fetcher(`${apiUrl}`, {
+    fetcher(`${props.apiUrl}`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -37,7 +37,7 @@ export const Goals = ({apiUrl}) => {
     }))
   }
   const updateGoal = (data) => {
-    fetcher(`${apiUrl}/${data.id}`, {
+    fetcher(`${props.apiUrl}/${data.id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json'

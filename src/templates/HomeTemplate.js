@@ -1,5 +1,5 @@
 import Head from 'next/head' 
-import {Container} from 'components/Container'
+import {Container} from 'uicomponents/Container'
 
 export const HomeTemplate = ({title, children}) => {
 

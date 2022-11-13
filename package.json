@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bulma": "^0.9.4",
+    "ionicons": "^6.0.2",
     "mongoose": "^6.3.5",
     "next": "12.1.6",
     "node-sass": "^7.0.1",

@@ -1,20 +1,20 @@
 import {useState, useEffect, useCallback} from 'react'
 import {fetcher} from 'lib/fetcher'
-import {InputAddon} from 'components/Input'
-import {TableContainer, Col} from 'components/Table'
+import {InputAddon} from 'uicomponents/Input'
+import {TableContainer, Col} from 'uicomponents/Table'
 
 
-export const Tasks = ({apiUrl}) => {
+export const Tasks = (props) => {
 
   const [tareas, setTareas] = useState([])
   const [alerts, setAlerts] = useState([])
 
   useEffect(() => {
-    fetcher(apiUrl).then(json => setTareas(json))
+    fetcher(props.apiUrl).then(json => setTareas(json))
   }, [])
 
   const handleAddTodo = (value) => {
-    fetcher(`${apiUrl}`,{
+    fetcher(`${props.apiUrl}`,{
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -25,7 +25,7 @@ export const Tasks = ({apiUrl}) => {
   }
 
   const handleDeleteTodo = (id) => {
-    fetcher(`${apiUrl}/${id}`, {
+    fetcher(`${props.apiUrl}/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json'
@@ -36,18 +36,18 @@ export const Tasks = ({apiUrl}) => {
     })
   }
 
-  const handleChangeTodo = (id, event) => {
+  const handleChangeTodo = useCallback((id, event) => {
     setTareas(prev => {
       const index = prev.findIndex(e => e.id === id)
       prev[index][event.target.name] = event.target.type == 'checkbox'? event.target.checked : event.target.value 
       return [...prev]
     })
-  }
+  }, [])
 
   const updateTodo = (id) => {
     const data = tareas.find(e => e.id === id)
     console.table(data)
-    fetcher(`${apiUrl}/${id}`, {
+    fetcher(`${props.apiUrl}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json'
